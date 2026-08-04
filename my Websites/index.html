@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ZaMain — Independent Developer. Websites, Discord bots, Minecraft plugins & mods." />
+  <title>ZaMain · Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       ZaMain Portfolio — Design System
+       Dark terminal · Muted green · Subtle 3D depth
+       ============================================= */
+
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #141418;
+      --bg-card: #1a1a20;
+      --bg-elevated: #22222a;
+      --border: #2a2a35;
+      --border-light: #3a3a48;
+
+      --green: #5cd68c;
+      --green-dim: rgba(92, 214, 140, 0.5);
+      --green-muted: rgba(92, 214, 140, 0.15);
+      --cyan: #5bc0de;
+      --cyan-dim: rgba(91, 192, 222, 0.5);
+
+      --text-primary: #e0e0e8;
+      --text-secondary: #9a9ab0;
+      --text-muted: #6a6a7e;
+      --text-green: #5cd68c;
+
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.15);
+      --shadow-elevated: 0 4px 24px rgba(0,0,0,0.4), 0 12px 48px rgba(0,0,0,0.2);
+      --shadow-terminal: 0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(92, 214, 140, 0.06);
+
+      --max-width: 960px;
+      --nav-height: 56px;
+
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    img, svg { display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input {
+      font: inherit;
+      border: none;
+      background: none;
+      color: inherit;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: rgba(13, 13, 13, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav__logo {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .nav__logo:hover { color: var(--text-primary); }
+
+    .nav__logo-prompt { color: var(--text-green); text-shadow: 0 0 6px rgba(92, 214, 140, 0.12); }
+    .nav__logo-sep { color: var(--text-secondary); }
+    .nav__logo-path { color: var(--cyan); }
+    .nav__logo-dollar { color: var(--text-green); margin-left: 2px; text-shadow: 0 0 6px rgba(92, 214, 140, 0.12); }
+    .nav__logo-cursor {
+      color: var(--text-green);
+      animation: blink 1s step-end infinite;
+      margin-left: 2px;
+      text-shadow: 0 0 6px rgba(92, 214, 140, 0.12);
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav__link {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .nav__link:hover {
+      color: var(--text-green);
+      background: var(--green-muted);
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      width: 0;
+      height: 1.5px;
+      background: var(--green);
+      transition: all var(--transition);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .nav__link:hover::after {
+      width: 60%;
+    }
+
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 40px) 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(92, 214, 140, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero__subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.4px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 2.4s forwards;
+    }
+
+    .hero__cta {
+      display: flex;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 2.8s forwards;
+    }
+
+    /* ===== TERMINAL ===== */
+    .terminal {
+      width: 100%;
+      max-width: 620px;
+      background: #0a0a0e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-terminal);
+      transform: perspective(1200px) rotateX(3deg) rotateY(-1deg);
+      transform-origin: center center;
+      transition: transform 0.1s ease;
+      position: relative;
+    }
+
+    .terminal:hover {
+      border-color: var(--border-light);
+    }
+
+    .terminal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(92, 214, 140, 0.04), transparent 40%, transparent 60%, rgba(91, 192, 222, 0.03));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Scanline overlay on terminal */
+    .terminal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.06) 2px,
+        rgba(0, 0, 0, 0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    .terminal__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #121216;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    .terminal__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal__dot--red { background: #ff5f56; }
+    .terminal__dot--yellow { background: #ffbd2e; }
+    .terminal__dot--green { background: #27c93f; }
+
+    .terminal__title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: auto;
+      padding-right: 4px;
+    }
+
+    .terminal__body {
+      padding: 20px 24px 24px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 280px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .term-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-height: 1.7em;
+    }
+
+    .prompt {
+      color: var(--text-green);
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-shadow: 0 0 8px rgba(92, 214, 140, 0.15);
+    }
+
+    .cmd { color: var(--text-primary); }
+
+    .cursor-blink {
+      color: var(--text-green);
+      animation: blink 1s step-end infinite;
+      font-weight: 300;
+      margin-left: 1px;
+    }
+
+    .ls-output {
+      padding-left: 0;
+      margin-top: 8px;
+      opacity: 0;
+    }
+
+    .ls-output.visible { opacity: 1; }
+
+    .ls-line {
+      display: block;
+      padding: 2px 0 2px 20px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      opacity: 0;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    .ls-line--highlight {
+      color: var(--text-green);
+      font-weight: 500;
+    }
+
+    .ls-line--dir {
+      color: var(--cyan);
+      font-size: 12px;
+    }
+
+    .ls-line--dir::before {
+      content: '└─ ';
+      color: var(--text-muted);
+    }
+
+    .ls-line--dir-sub {
+      color: var(--text-secondary);
+      font-size: 12px;
+      padding-left: 36px;
+    }
+
+    .ls-line--dir-sub::before {
+      content: '  └─ ';
+      color: var(--text-muted);
+    }
+
+    .interactive-area {
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .cmd-output {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      min-height: 12px;
+      white-space: pre-wrap;
+    }
+
+    .cmd-output .error { color: #ff5f56; }
+    .cmd-output .success { color: var(--text-green); }
+    .cmd-output .info { color: var(--cyan); }
+
+    .input-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cmd-input {
+      flex: 1;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-primary);
+      background: transparent;
+      border: none;
+      outline: none;
+      caret-color: var(--text-green);
+      min-width: 0;
+    }
+
+    .cmd-input::placeholder {
+      color: var(--text-muted);
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+      opacity: 0.15;
+    }
+
+    .section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    .section__title {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all var(--transition-slow);
+    }
+
+    .section__title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section__prompt {
+      color: var(--text-green);
+      font-size: 15px;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(92, 214, 140, 0.02), transparent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card:hover {
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-elevated);
+      transform: translateY(-2px);
+    }
+
+    .card:active {
+      transform: translateY(-1px);
+    }
+
+    /* ===== ABOUT ===== */
+    .about__content { max-width: 640px; }
+
+    .about__card .card__header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .card__header .icon--user {
+      width: 28px;
+      height: 28px;
+      color: var(--text-green);
+      flex-shrink: 0;
+    }
+
+    .about__card h3 {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .about__text {
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .about__text:last-child { margin-bottom: 0; }
+
+    /* ===== SERVICES ===== */
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      padding: 28px 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .service-card:nth-child(1) { transition-delay: 0.05s; }
+    .service-card:nth-child(2) { transition-delay: 0.15s; }
+    .service-card:nth-child(3) { transition-delay: 0.25s; }
+    .service-card:nth-child(4) { transition-delay: 0.35s; }
+
+    .card__icon-wrap {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-muted);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+    }
+
+    .card__icon-wrap .icon {
+      width: 20px;
+      height: 20px;
+      color: var(--text-green);
+    }
+
+    .service-card__title {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .service-card__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ===== PAYMENTS ===== */
+    .payments__card { max-width: 580px; }
+
+    .payments__intro {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .payments__methods {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .payments__method {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-primary);
+      padding: 10px 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+
+    .payments__method .icon {
+      width: 18px;
+      height: 18px;
+      color: var(--green-dim);
+      flex-shrink: 0;
+      transition: color var(--transition);
+    }
+
+    .payments__method:hover {
+      border-color: var(--green-dim);
+      color: var(--text-green);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .payments__method:hover .icon { color: var(--text-green); }
+
+    .payments__note {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact__card { max-width: 520px; }
+
+    .contact__intro {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .contact__links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact__link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: all var(--transition);
+    }
+
+    .contact__link .icon {
+      width: 22px;
+      height: 22px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color var(--transition);
+    }
+
+    .contact__link:hover {
+      border-color: var(--green-dim);
+      color: var(--text-primary);
+      transform: translateX(4px);
+    }
+
+    .contact__link:active {
+      transform: translateX(2px);
+    }
+
+    .contact__link:hover .icon { color: var(--text-green); }
+
+    .contact__link strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn--primary {
+      background: var(--green);
+      color: #0a0a0a;
+      border: 1px solid var(--green);
+    }
+
+    .btn--primary:hover {
+      background: #6ee09e;
+      border-color: #6ee09e;
+      box-shadow: 0 0 24px rgba(92, 214, 140, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn--ghost:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .footer__inner {
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer__text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer__text .prompt {
+      color: var(--text-green);
+    }
+
+    /* ===== ICONS ===== */
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .container { padding: 0 16px; }
+
+      .nav__links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(13, 13, 13, 0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 16px;
+        gap: 4px;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all var(--transition);
+        pointer-events: none;
+      }
+
+      .nav__links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav__toggle { display: flex; }
+
+      .terminal {
+        transform: perspective(800px) rotateX(1deg) rotateY(0deg);
+      }
+
+      .terminal__body {
+        padding: 16px;
+        font-size: 13px;
+        min-height: 240px;
+      }
+
+      .services__grid { grid-template-columns: 1fr; }
+      .payments__methods { grid-template-columns: 1fr; }
+
+      .hero__cta {
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .hero__cta .btn { width: 100%; }
+
+      .section { padding: 56px 0; }
+      .section__title { margin-bottom: 28px; }
+      .card { padding: 24px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .terminal__body {
+        font-size: 12px;
+        padding: 12px;
+        min-height: 220px;
+      }
+
+      .nav__logo { font-size: 11px; }
+
+      .ls-line,
+      .ls-line--dir,
+      .ls-line--dir-sub { font-size: 11px; }
+
+      .cmd-input { font-size: 12px; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="#" class="nav__logo" aria-label="Home">
+        <span class="nav__logo-prompt">zamain@portfolio</span><span class="nav__logo-sep">:</span><span class="nav__logo-path">~</span><span class="nav__logo-dollar">$</span><span class="nav__logo-cursor">_</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#about" class="nav__link">/whoami</a></li>
+        <li><a href="#services" class="nav__link">/services</a></li>
+        <li><a href="#payments" class="nav__link">/payments</a></li>
+        <li><a href="#contact" class="nav__link">/contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero__container">
+      <div class="terminal" id="terminal" role="region" aria-label="Interactive terminal">
+        <div class="terminal__header">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__title">zamain@portfolio: ~</span>
+        </div>
+        <div class="terminal__body" id="terminalBody" aria-live="polite">
+          <div class="term-line"><span class="prompt">zamain@portfolio:~$</span> <span class="cmd" id="typedCmd"></span><span class="cursor-blink" id="introCursor">|</span></div>
+          <div class="ls-output" id="lsOutput"></div>
+          <div id="interactiveArea" class="interactive-area" hidden>
+            <div id="commandOutput" class="cmd-output"></div>
+            <div class="term-line input-line">
+              <span class="prompt">zamain@portfolio:~$</span>
+              <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" spellcheck="false" aria-label="Terminal command" placeholder="type help" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="hero__subtitle">Independent Developer from Palestine</p>
+      <div class="hero__cta">
+        <a href="#services" class="btn btn--primary">View Services</a>
+        <a href="#contact" class="btn btn--ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section__title"><span class="section__prompt">$</span> whoami</h2>
+      <div class="about__content">
+        <div class="about__card card">
+          <div class="card__header">
+            <svg class="icon icon--user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <h3>ZaMain</h3>
+          </div>
+          <p class="about__text">
+            I'm a young independent developer from Palestine building things I'm proud of.
+            I write code for websites, Discord bots, Minecraft plugins, and Minecraft mods.
+            Every project is crafted with care — no shortcuts, no templates, just clean,
+            functional work.
+          </p>
+          <p class="about__text">
+            I believe in straightforward communication, honest pricing, and delivering
+            something that actually works. If you have an idea, I'd love to hear it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section services" id="services">
+    <div class="container">
+      <h2 class="section__title"><span class="section__prompt">$</span> services</h2>
+      <div class="services__grid">
+        <div class="service-card card">
+          <div class="card__icon-wrap">
+            <svg class="icon icon--globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Websites</h3>
+          <p class="service-card__desc">Clean, responsive websites and web apps built with modern tooling. Portfolios, landing pages, dashboards — whatever you need.</p>
+        </div>
+        <div class="service-card card">
+          <div class="card__icon-wrap">
+            <svg class="icon icon--bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="7" width="18" height="12" rx="2"/>
+              <circle cx="9" cy="13" r="1.5"/>
+              <circle cx="15" cy="13" r="1.5"/>
+              <path d="M12 3v4"/>
+              <path d="M8 19v2"/>
+              <path d="M16 19v2"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Discord Bots</h3>
+          <p class="service-card__desc">Custom Discord bots with moderation, games, utilities, music, and more. Reliable, fast, and tailored to your server.</p>
+        </div>
+        <div class="service-card card">
+          <div class="card__icon-wrap">
+            <svg class="icon icon--plugin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Minecraft Plugins</h3>
+          <p class="service-card__desc">Spigot/Paper plugins for minigames, economy, protection, custom mechanics, and server management. Optimized and well-documented.</p>
+        </div>
+        <div class="service-card card">
+          <div class="card__icon-wrap">
+            <svg class="icon icon--mod" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
+              <line x1="12" y1="22" x2="12" y2="12"/>
+              <line x1="2" y1="7" x2="12" y2="12"/>
+              <line x1="22" y1="7" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Minecraft Mods</h3>
+          <p class="service-card__desc">Forge/NeoForge/Fabric mods for new content, mechanics, and quality-of-life features. Custom items, blocks, dimensions, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAYMENTS ===== -->
+  <section class="section payments" id="payments">
+    <div class="container">
+      <h2 class="section__title"><span class="section__prompt">$</span> payments</h2>
+      <div class="payments__card card">
+        <p class="payments__intro">
+          I accept the following payment methods. For specific wallet addresses, rates,
+          and availability — please reach out directly.
+        </p>
+        <ul class="payments__methods" role="list">
+          <li class="payments__method">
+            <svg class="icon icon--card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+            Gift Cards
+          </li>
+          <li class="payments__method">
+            <svg class="icon icon--sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12h8"/>
+              <path d="M12 8v8"/>
+            </svg>
+            Solana (SOL)
+          </li>
+          <li class="payments__method">
+            <svg class="icon icon--ltc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M10 8v8l4-2"/>
+            </svg>
+            Litecoin (LTC)
+          </li>
+          <li class="payments__method">
+            <svg class="icon icon--btc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v12"/>
+              <path d="M9 9h5a2 2 0 0 1 0 4H9"/>
+              <path d="M9 13h6a2 2 0 0 1 0 4H9"/>
+            </svg>
+            Bitcoin (BTC)
+          </li>
+        </ul>
+        <p class="payments__note">
+          Other cryptocurrencies available by arrangement. Contact me for details.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <h2 class="section__title"><span class="section__prompt">$</span> contact</h2>
+      <div class="contact__card card">
+        <p class="contact__intro">
+          The best way to reach me is on Discord. I'm also active on GitHub and Reddit.
+        </p>
+        <div class="contact__links">
+          <a href="https://discord.com/users/zamainny" class="contact__link" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon--discord" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 11.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+              <path d="M15 11.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+              <path d="M7.5 17c1.5 0 2.5-1 3.5-1s2 1 3.5 1"/>
+              <path d="M8.5 3.5c-1.5 0-3 .5-4 2 0 0-2.5 4.5-2.5 10 0 5.5 3.5 7 3.5 7 1 1 2.5 1.5 4 1.5 0 0 1-1 1.5-2 .5 1 1.5 2 1.5 2 1.5 0 3-.5 4-1.5 0 0 3.5-1.5 3.5-7 0-5.5-2.5-10-2.5-10-1-1.5-2.5-2-4-2"/>
+              <path d="M12 3.5c-1.5 0-3 .5-4 2l-2 4"/>
+            </svg>
+            <span>Discord: <strong>@zamainny</strong></span>
+          </a>
+          <a href="https://github.com/ZaMainXS" class="contact__link" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon--github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 4 11.52c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9.5 21.13V22"/>
+            </svg>
+            <span>GitHub: <strong>@ZaMainXS</strong></span>
+          </a>
+          <a href="https://www.reddit.com/user/ZaMainny/" class="contact__link" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon--reddit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M7 11a2 2 0 0 1 2-2"/>
+              <path d="M17 11a2 2 0 0 0-2-2"/>
+              <path d="M12 17c-2.5 0-4-1-4-2.5S9.5 12 12 12s4 1 4 2.5S14.5 17 12 17z"/>
+              <circle cx="9" cy="12" r=".5"/>
+              <circle cx="15" cy="12" r=".5"/>
+            </svg>
+            <span>Reddit: <strong>u/ZaMainny</strong></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__text">
+        <span class="prompt">zamain@portfolio:~$</span> echo &copy; 2026 ZaMain &middot; Built with care
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* =============================================
+       ZaMain Portfolio — Interactive Terminal
+       ============================================= */
+    (function () {
+      'use strict';
+
+      // ===== CONFIG =====
+      var LS_CONTENT = [
+        { text: '',                 cls: '' },
+        { text: 'Yours Truly — The Dev ZaMain', cls: 'ls-line--highlight', delay: 0 },
+        { text: '',                 cls: '', delay: 0 },
+        { text: '/services',        cls: 'ls-line--dir', delay: 200 },
+        { text: '  websites',       cls: 'ls-line--dir-sub', delay: 400 },
+        { text: '  discord-bots',   cls: 'ls-line--dir-sub', delay: 600 },
+        { text: '  minecraft-plugins', cls: 'ls-line--dir-sub', delay: 800 },
+        { text: '  minecraft-mods', cls: 'ls-line--dir-sub', delay: 1000 },
+      ];
+
+      var VERSION = '1.0.0';
+
+      // ===== DOM REFS =====
+      var typedCmdEl    = document.getElementById('typedCmd');
+      var introCursor   = document.getElementById('introCursor');
+      var lsOutput      = document.getElementById('lsOutput');
+      var interactiveArea = document.getElementById('interactiveArea');
+      var cmdOutput     = document.getElementById('commandOutput');
+      var cmdInput      = document.getElementById('cmdInput');
+      var terminalBody  = document.getElementById('terminalBody');
+      var terminal      = document.getElementById('terminal');
+      var navToggle     = document.querySelector('.nav__toggle');
+      var navLinks      = document.querySelector('.nav__links');
+      var sectionTitles = document.querySelectorAll('.section__title');
+      var serviceCards  = document.querySelectorAll('.service-card');
+
+      // ===== INTRO: TYPE COMMAND + SHOW LS =====
+      var CMD_TEXT = 'ls';
+
+      function typeCommand(text, el, cursor, done) {
+        var i = 0;
+        var interval = 60;
+        cursor.style.animation = 'none';
+        function tick() {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(tick, interval);
+          } else {
+            cursor.style.animation = 'blink 1s step-end infinite';
+            setTimeout(done, 500);
+          }
+        }
+        tick();
+      }
+
+      function showLSOutput() {
+        lsOutput.classList.add('visible');
+        LS_CONTENT.forEach(function (item, index) {
+          var line = document.createElement('span');
+          line.className = 'ls-line' + (item.cls ? ' ' + item.cls : '');
+          line.textContent = item.text;
+          line.style.animationDelay = (item.delay != null ? item.delay : (index * 180)) + 'ms';
+          lsOutput.appendChild(line);
+        });
+
+        var totalDelay = 500 + (LS_CONTENT.length * 180) + 600;
+        setTimeout(function () {
+          interactiveArea.removeAttribute('hidden');
+          cmdInput.focus();
+        }, totalDelay);
+
+        setTimeout(function () {
+          introCursor.style.display = 'none';
+        }, 500 + CMD_TEXT.length * 60);
+      }
+
+      typeCommand(CMD_TEXT, typedCmdEl, introCursor, showLSOutput);
+
+      // ===== LIVE COMMANDS =====
+      var COMMANDS = {
+        help: {
+          desc: 'Show available commands',
+          run: function () {
+            var list = Object.keys(COMMANDS).sort();
+            return list.map(function (cmd) {
+              return '  ' + cmd.padEnd(14) + COMMANDS[cmd].desc;
+            }).join('\n');
+          }
+        },
+        whoami: {
+          desc: 'About ZaMain',
+          run: function () {
+            return 'ZaMain — Independent Developer\nFrom Palestine. I build websites, Discord bots,\nMinecraft plugins, and Minecraft mods.';
+          }
+        },
+        services: {
+          desc: 'List offered services',
+          run: function () {
+            return 'Available Services:\n  websites           Responsive websites and web apps\n  discord-bots       Custom Discord bots\n  minecraft-plugins  Spigot/Paper plugins\n  minecraft-mods     Forge/NeoForge/Fabric mods';
+          }
+        },
+        payments: {
+          desc: 'Accepted payment methods',
+          run: function () {
+            return 'Accepted Payment Methods:\n  Gift Cards\n  Solana (SOL)\n  Litecoin (LTC)\n  Bitcoin (BTC)\n  Other crypto by arrangement\n\nContact me for wallet addresses and availability.';
+          }
+        },
+        contact: {
+          desc: 'How to reach ZaMain',
+          run: function () {
+            return 'Discord: @zamainny\nGitHub:  @ZaMainXS\nReddit:  u/ZaMainny';
+          }
+        },
+        ls: {
+          desc: 'List directory contents',
+          run: function () {
+            return 'Yours Truly — The Dev ZaMain\n\n/services\n  websites\n  discord-bots\n  minecraft-plugins\n  minecraft-mods';
+          }
+        },
+        version: {
+          desc: 'Show version info',
+          run: function () { return 'zamain/portfolio v' + VERSION; }
+        },
+        clear: {
+          desc: 'Clear terminal output',
+          run: function () { cmdOutput.textContent = ''; return null; }
+        },
+        date: {
+          desc: 'Show current date and time',
+          run: function () {
+            return new Date().toLocaleString('en-US', { timeZone: 'UTC', dateStyle: 'full', timeStyle: 'short' }) + ' UTC';
+          }
+        },
+        uptime: {
+          desc: 'Show session duration',
+          run: function () {
+            var sec = Math.floor((Date.now() - SESSION_START) / 1000);
+            var m = Math.floor(sec / 60);
+            var s = sec % 60;
+            return m + 'm ' + s + 's';
+          }
+        },
+        banner: {
+          desc: 'Display intro banner',
+          run: function () {
+            return 'zamain@portfolio:~$ ls\n\nYours Truly — The Dev ZaMain\n\n/services\n  websites\n  discord-bots\n  minecraft-plugins\n  minecraft-mods';
+          }
+        }
+      };
+
+      var SESSION_START = Date.now();
+      var history = [];
+      var historyIndex = -1;
+
+      function processCommand(input) {
+        var trimmed = input.trim().toLowerCase();
+        if (!trimmed) return { type: 'info', text: '' };
+
+        if (trimmed === 'about' || trimmed === 'bio') {
+          document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+          return { type: 'info', text: '' };
+        }
+        if (trimmed === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return { type: 'info', text: '' };
+        }
+
+        var cmd = COMMANDS[trimmed];
+        if (cmd) {
+          var output = cmd.run();
+          if (output === null) return null;
+          return { type: 'success', text: output };
+        }
+        return { type: 'error', text: 'bash: ' + trimmed + ': command not found. Type "help" for available commands.' };
+      }
+
+      function appendOutput(type, text) {
+        if (text === '') return;
+        var block = document.createElement('div');
+        block.className = type;
+        block.textContent = text;
+        cmdOutput.appendChild(block);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+
+      cmdInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          var val = cmdInput.value;
+          cmdInput.value = '';
+
+          var echoLine = document.createElement('div');
+          echoLine.style.cssText = 'font-size:12px;color:var(--text-muted);margin-bottom:4px;';
+          echoLine.textContent = 'zamain@portfolio:~$ ' + val;
+          cmdOutput.appendChild(echoLine);
+
+          var result = processCommand(val);
+          if (result === null) {
+            cmdOutput.textContent = '';
+          } else {
+            appendOutput(result.type, result.text);
+          }
+
+          if (val.trim()) {
+            history.push(val);
+            historyIndex = history.length;
+          }
+        }
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (history.length > 0) {
+            historyIndex = Math.max(0, historyIndex - 1);
+            cmdInput.value = history[historyIndex];
+          }
+        }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIndex < history.length - 1) {
+            historyIndex++;
+            cmdInput.value = history[historyIndex];
+          } else {
+            historyIndex = history.length;
+            cmdInput.value = '';
+          }
+        }
+      });
+
+      terminalBody.addEventListener('click', function (e) {
+        if (e.target !== cmdInput) cmdInput.focus();
+      });
+
+      // ===== 3D TILT =====
+      if (window.innerWidth > 768) {
+        terminal.addEventListener('mousemove', function (e) {
+          var rect = terminal.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var centerX = rect.width / 2;
+          var centerY = rect.height / 2;
+          var rotateY = ((x - centerX) / centerX) * 4;
+          var rotateX = ((centerY - y) / centerY) * 3;
+          terminal.style.transform = 'perspective(1200px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+        });
+
+        terminal.addEventListener('mouseleave', function () {
+          terminal.style.transform = 'perspective(1200px) rotateX(3deg) rotateY(-1deg)';
+          terminal.style.transition = 'transform 0.4s ease';
+          setTimeout(function () { terminal.style.transition = 'transform 0.1s ease'; }, 400);
+        });
+      }
+
+      // ===== SCROLL REVEAL =====
+      var observerOptions = { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.1 };
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      Array.prototype.forEach.call(sectionTitles, function (el) { revealObserver.observe(el); });
+      Array.prototype.forEach.call(serviceCards, function (el) { revealObserver.observe(el); });
+
+      // ===== MOBILE NAV =====
+      navToggle.addEventListener('click', function () {
+        var open = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open);
+      });
+
+      Array.prototype.forEach.call(navLinks.querySelectorAll('.nav__link'), function (link) {
+        link.addEventListener('click', function () {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
